@@ -1,7 +1,7 @@
 ![svg xmlns=httpwww w3 org2000svg x=0px y=0px width=100 height=100 viewBox=0 0 48 48 path fill=#424242 d=M44,24c0,11 045-8 955,20-20,20S4,35 045,4,24S12 955,4,24,4S44,12 955,44,24zpathpath fill=#fff (1)](https://github.com/user-attachments/assets/40bd53ca-a68b-450f-aeb4-2e2343f82f14)
-# AIM 
+# :white_check_mark: AIM 
 ## *Deploying web-application in a Docker-Container on remote Docker-Host using Jenkins CI/CD and build using Ansible playbook and Dockerfile*
-# STEPS
+# :arrow_right: STEPS
 **1. Launch 3 ubuntu servers on AWS for Jenkins, Ansible, Docker-Host**
 
 --> 1) For Jenkins take T2.Medium server
@@ -116,7 +116,16 @@ cd /opt
 nano index.html
 ```
 
-**12. Go to Jenkins Dashboard**
+**12. login docker-hub from  ansible-server and docker-host server using**
+```
+docker login
+```
+**13. give access to docker user**
+```
+sudo usermod -aG $USER
+```
+
+**13. Go to Jenkins Dashboard**
 
 --> Create new job devops-project-2
 
@@ -176,5 +185,19 @@ nano deployment.yml
     - name: create container
       shell: docker container run -itd --name mydockercontainer -p 9000:80 vaibhavkhairnar/devops-project-2
 ```
+**15. In the Post-build actions**
 
+--> Select send build artifacts over ssh
 
+--> select ansible 
+
+--> In the exec command section enter
+```
+ansible-playbook /home/ubuntu/sourcecode/deployment.yml
+```
+
+--> apply and save.
+
+**16. Start 1st Build**
+
+--> If success, check on the docker-hub image is pushed or not also in the ansible server docker image is created or not, if every thing is success --> then add your docker-host servers public ip in the browser with :9000 port you will see your index.html is application. this how you can do CI/CD automation for you application deployment.
