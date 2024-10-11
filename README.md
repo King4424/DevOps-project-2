@@ -21,7 +21,7 @@ passwd root
 
 **3. Enable Password Authentication on all servers**
 ```
-cd /etc/ssh/sshd_config
+nano /etc/ssh/sshd_config
 ```
 --> Uncomment permit root login access to yes
 
